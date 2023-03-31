@@ -42,7 +42,6 @@
 \ifxetex
   \RequirePackage{xeCJK}
   \edef\CJK@UnicodeEnc{UTF8}
-  % TexLive2021/2022，xelatex编译时，需注释下行，以免报错LaTeX3 Error: Control sequence \CJKaddEncHook already defined.
   \def\CJKaddEncHook#1#2{\expandafter\def\csname xeCJK@enc@#1\endcsname{#2}}
   \def\Unicode#1#2{\@tempcnta#1\relax
     \multiply\@tempcnta 256\relax
@@ -64,29 +63,7 @@
   \def\jiacu{\pdfliteral{q 0.2 w 2 Tr}\aftergroup\jiacuu}
   \def\jiacuu{\pdfliteral{0 Tr}}
   \CJK@makeActive
-%　CJKpunct.sty 补丁
-%  \def\CJK@CJK{%
-%    \ifnum\CJKpunct@lastcharclass=\tw@
-%    \else
-%      \kern -1sp\kern 1sp%`
-%    \fi}
-%
-%  {% CJKspace.sty 补丁
-%  \catcode`\-=11
-%  \catcode`\/=0
-%  \catcode`\C=12
-%  \catcode`\J=12
-%  \catcode`\K=12
-%  \catcode`\@=12
-%  \catcode`\\=12
-%  /gdef/cjk---check-next{%
-%    /ifx/cjk-let-token/par
-%    /else
-%      /expandafter/cjk-get-keystring
-%        /meaning/cjk-let-token\CJK@@@/cjk-space-stop
-%      /cjk-temp
-%    /fi}
-%  }
+
 
   \DeclareRobustCommand\rmfamily
     {\not@math@alphabet\rmfamily\mathrm
@@ -205,7 +182,7 @@
 \def\chapterformat{\centering\fontsize{16}{19}\bfseries\jiacu}
 \def\sectionformat{\centering\bfseries\zihaosi}
 \def\subsectionformat{\bfseries\fontsize{13}{15}\selectfont}
-\def\subsubsectionformat{\bfseries\zihaoxiaosi}
+\def\subsubsectionformat{\bfseries\zihaowu}
 
 
 \def\chapter{
@@ -557,7 +534,6 @@
 
 \def\sectionname{\thesection}
 \def\subsectionname{\thesubsection}
-\def\subsubsectionname{\thesubsubsection}
 
 
 \newcount\NKT@itemcnt
@@ -705,6 +681,20 @@
 
 
 \input{NKThesis.cfg}
+
+\setCJKmonofont[Path=fonts/]{simfang.ttf}
+\setCJKmainfont[BoldFont=simhei.ttf,ItalicFont=simkai.ttf,Path=fonts/]{simsun.ttf}
+\newCJKfontfamily\cukai[Path=fonts/]{FZCKJW.ttf}
+
+\newfontfamily{\enghei}{[simhei]}
+% Times New Roman
+\setromanfont[
+BoldFont=timesbd.ttf,
+ItalicFont=timesi.ttf,
+BoldItalicFont=timesbi.ttf,
+Path=fonts/
+]{times.ttf}
+\setmainfont{Times New Roman}
 
 \newcommand\setpaperdimen[2]{
   \pdfpagewidth=#1 true mm
@@ -927,6 +917,6 @@
 }
 }{\endminipage}
 
-\input{NKTfonts.cfg}
+% \input{NKTfonts.cfg}
 
 \endinput
